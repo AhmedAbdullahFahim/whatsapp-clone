@@ -4,6 +4,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon'
 import MicIcon from '@mui/icons-material/Mic'
+import LockIcon from '@mui/icons-material/Lock'
 import Moment from 'react-moment'
 import styled from 'styled-components'
 import {
@@ -91,7 +92,6 @@ const ChatScreen = ({ chat, messages }) => {
   )
   const [recipientSnapshot] = useCollection(recipientRef)
   const recipient = recipientSnapshot?.docs?.[0]?.data()
-  console.log(recipient?.lastSeen?.toDate())
 
   return (
     <Container>
