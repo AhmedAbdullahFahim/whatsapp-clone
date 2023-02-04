@@ -32,7 +32,7 @@ const Chat = ({ id, users }) => {
       ) : (
         <UserAvatar>{recipientEmail[0]}</UserAvatar>
       )}
-      <p>{recipientEmail}</p>
+      <Contact>{recipientEmail}</Contact>
     </Container>
   )
 }
@@ -45,12 +45,21 @@ const Container = styled.div`
   padding: 15px;
   cursor: pointer;
   word-break: break-word;
+  max-width: 92%;
+  border-radius: 5px;
+  border-bottom: 1px solid #aebac130;
+  :last-child {
+    border-bottom: 0;
+  }
   :hover {
-    background-color: #e9eaeb;
+    background-color: #202c33;
   }
 `
 
 const UserAvatar = styled(Avatar)`
   margin: 5px;
   margin-right: 15px;
+`
+const Contact = styled.p`
+  color: #d9dad0;
 `

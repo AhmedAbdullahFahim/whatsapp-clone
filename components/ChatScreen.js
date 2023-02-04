@@ -1,10 +1,10 @@
-import { IconButton } from '@mui/material'
+import { createTheme, IconButton, ThemeProvider } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
-import AttachFileIcon from '@mui/icons-material/AttachFile'
+import SearchIcon from '@mui/icons-material/Search'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon'
+import AttachFileIcon from '@mui/icons-material/AttachFile'
 import MicIcon from '@mui/icons-material/Mic'
-import LockIcon from '@mui/icons-material/Lock'
 import Moment from 'react-moment'
 import styled from 'styled-components'
 import {
@@ -93,49 +93,64 @@ const ChatScreen = ({ chat, messages }) => {
   const [recipientSnapshot] = useCollection(recipientRef)
   const recipient = recipientSnapshot?.docs?.[0]?.data()
 
+  const theme = createTheme({
+    palette: {
+      icon: {
+        main: '#aebac1',
+      },
+    },
+  })
+
   return (
-    <Container>
-      <Header>
-        {recipient ? (
-          <Avatar src={recipient?.photoURL} />
-        ) : (
-          <Avatar>{recipientEmail[0]}</Avatar>
-        )}
-        <Info>
-          <h3>{recipientEmail}</h3>
-          {recipientSnapshot ? (
-            <p>
-              Last seen{' '}
-              {recipient?.lastSeen?.toDate() ? (
-                <Moment fromNow>{recipient?.lastSeen?.toDate()}</Moment>
-              ) : (
-                'unavailable'
-              )}
-            </p>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Header>
+          {recipient ? (
+            <Avatar src={recipient?.photoURL} />
           ) : (
-            <p>Loading...</p>
+            <Avatar>{recipientEmail[0]}</Avatar>
           )}
-        </Info>
-        <IconContainer>
-          <IconButton>
-            <AttachFileIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        </IconContainer>
-      </Header>
-      <ChatContainer>
-        {showMessages()}
-        <EndofMessage ref={endOfMessagesRef} />
-      </ChatContainer>
-      <InputContainer>
-        <InsertEmoticonIcon />
-        <Input value={message} onChange={(e) => setMessage(e.target.value)} />
-        <MicIcon />
-        <button hidden disabled={!message} onClick={sendMessage} />
-      </InputContainer>
-    </Container>
+          <Info>
+            <h3>{recipientEmail}</h3>
+            {recipientSnapshot ? (
+              <p>
+                Last seen{' '}
+                {recipient?.lastSeen?.toDate() ? (
+                  <Moment fromNow>{recipient?.lastSeen?.toDate()}</Moment>
+                ) : (
+                  'unavailable'
+                )}
+              </p>
+            ) : (
+              <p>Loading...</p>
+            )}
+          </Info>
+          <IconContainer>
+            <IconButton>
+              <SearchIcon color='icon' />
+            </IconButton>
+            <IconButton>
+              <MoreVertIcon color='icon' style={{ marginLeft: '10px' }} />
+            </IconButton>
+          </IconContainer>
+        </Header>
+        <ChatContainer>
+          {showMessages()}
+          <EndofMessage ref={endOfMessagesRef} />
+        </ChatContainer>
+        <InputContainer>
+          <InsertEmoticonIcon color='icon' style={{ marginRight: '15px' }} />
+          <AttachFileIcon color='icon' />
+          <Input
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder='Type a message'
+          />
+          <MicIcon color='icon' />
+          <button hidden disabled={!message} onClick={sendMessage} />
+        </InputContainer>
+      </Container>
+    </ThemeProvider>
   )
 }
 
@@ -147,19 +162,19 @@ const Header = styled.div`
   display: flex;
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: #202c33;
   z-index: 100;
-  padding: 11px;
-  height: 80px;
+  padding: 10px 15px;
+  height: 40px;
   align-items: center;
-  border-bottom: 1px solid whitesmoke;
 `
 const Info = styled.div`
   margin-left: 15px;
   flex: 1;
+  color: #d9dad0;
 
   > h3 {
-    margin-bottom: 3px;
+    margin-bottom: -10px;
   }
 
   > p {
@@ -172,7 +187,7 @@ const IconContainer = styled.div``
 
 const ChatContainer = styled.div`
   padding: 30px;
-  background-color: #e5ded8;
+  background-color: #111b21;
   min-height: 90vh;
 `
 
@@ -181,11 +196,11 @@ const EndofMessage = styled.div``
 const InputContainer = styled.form`
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 10px 15px 16px 20px;
   position: sticky;
   bottom: 0;
   z-index: 100;
-  background-color: white;
+  background-color: #202c33;
 `
 
 const Input = styled.input`
@@ -193,8 +208,13 @@ const Input = styled.input`
   outline: 0;
   border: none;
   border-radius: 10px;
-  background-color: whitesmoke;
-  padding: 20px;
+  background-color: #384349;
+  padding: 13px;
   margin-left: 15px;
   margin-right: 15px;
+  color: white;
+  font-size: 15px;
+  ::placeholder {
+    color: #aebac1;
+  }
 `

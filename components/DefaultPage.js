@@ -30,6 +30,7 @@ const DefaultContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  background-color: #222e35;
 `
 
 const Logo = styled.img`
@@ -39,17 +40,18 @@ const Logo = styled.img`
 const Title = styled.h1`
   margin-top: 40px;
   font-weight: 500;
+  color: #c9cec5;
 `
 
 const Description = styled.p`
   margin: 0;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.5);
 `
 
 const Footer = styled.div`
   display: flex;
   align-items: center;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.35);
   text-align: flex-end;
   bottom: 0;
   position: absolute;

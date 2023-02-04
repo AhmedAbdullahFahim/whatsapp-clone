@@ -1,9 +1,12 @@
-import { Button, IconButton } from '@mui/material'
+import { Button, createTheme, IconButton, ThemeProvider } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat'
 import Avatar from '@mui/material/Avatar'
 import styled from 'styled-components'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import GroupsIcon from '@mui/icons-material/Groups'
 import SearchIcon from '@mui/icons-material/Search'
+import DonutLargeIcon from '@mui/icons-material/DonutLarge'
+import FilterListIcon from '@mui/icons-material/FilterList'
 import * as EmailValidator from 'email-validator'
 import { auth, db } from '@/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -43,41 +46,65 @@ const Sidebar = () => {
         chat.data().users.find((user) => user === recipientEmail)?.length > 0
     )
 
+  const theme = createTheme({
+    palette: {
+      icon: {
+        main: '#aebac1',
+      },
+    },
+  })
+  let isMobile = window.matchMedia('only screen and (max-width: 480px)').matches
+
+  console.log(isMobile)
+
   return (
-    <Container>
-      <Header>
-        <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
-        <IconContainer>
-          <Icon>
-            <ChatIcon />
-          </Icon>
-          <Icon>
-            <MoreVertIcon />
-          </Icon>
-        </IconContainer>
-      </Header>
-      <SearchContainer>
-        <SearchIcon />
-        <SearchInput placeholder='Search in chats' />
-      </SearchContainer>
-      <SidebarButton onClick={startChat}>Start a new chat</SidebarButton>
-      {chatsSnapshot?.docs.map((chat) => (
-        <Chat key={chat.id} users={chat.data().users} id={chat.id} />
-      ))}
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Header>
+          <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
+          <IconContainer>
+            <Icon>
+              <GroupsIcon color='icon' />
+            </Icon>
+            <Icon>
+              <DonutLargeIcon
+                color='icon'
+                style={{ transform: 'rotate(75deg)' }}
+              />
+            </Icon>
+            <Icon>
+              <ChatIcon color='icon' fontSize='small' />
+            </Icon>
+            <Icon>
+              <MoreVertIcon color='icon' />
+            </Icon>
+          </IconContainer>
+        </Header>
+        <SearchContainer>
+          <Search>
+            <SearchIcon color='icon' fontSize='small' />
+            <SearchInput placeholder='Search or start new chat' />
+          </Search>
+          <FilterListIcon color='icon' fontSize='small' />
+        </SearchContainer>
+        <SidebarButton onClick={startChat}>Start a new chat</SidebarButton>
+        {chatsSnapshot?.docs.map((chat) => (
+          <Chat key={chat.id} users={chat.data().users} id={chat.id} />
+        ))}
+      </Container>
+    </ThemeProvider>
   )
 }
 
 export default Sidebar
 
 const Container = styled.div`
-  border-right: 1px solid whitesmoke;
   flex: 0.45;
   height: 100vh;
-  min-width: 300px;
-  max-width: 350px;
+  max-width: 450px;
   overflow-y: scroll;
-
+  background-color: #111b21;
+  border-right: 1px solid #aebac130;
   ::-webkit-scrollbar {
     display: none;
   }
@@ -89,14 +116,13 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 11px;
+  padding: 10px;
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: white;
+  background-color: #202c33;
   align-items: center;
-  height: 80px;
-  border-bottom: 1px solid whitesmoke;
+  height: 40px;
 `
 
 const UserAvatar = styled(Avatar)`
@@ -108,24 +134,44 @@ const UserAvatar = styled(Avatar)`
 
 const IconContainer = styled.div``
 
-const Icon = styled(IconButton)``
+const Icon = styled(IconButton)`
+  margin-right: 10px;
+`
 
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   border-radius: 2px;
+  justify-content: space-evenly;
+`
+
+const Search = styled.div`
+  background-color: #202c33;
+  flex: 0.97;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 8px 5px 8px 15px;
+  margin-right: 2px;
 `
 
 const SearchInput = styled.input`
   outline-width: 0;
   border: none;
   flex: 1;
+  background-color: #202c33;
+  color: #aebac1;
+  padding-left: 40px;
+  ::placeholder {
+    color: #aebac1;
+  }
 `
 
 const SidebarButton = styled(Button)`
   width: 100%;
-  border-top: 1px solid whitesmoke;
-  border-bottom: 1px solid whitesmoke;
-  color: black;
+  color: #aebac1;
+  background-color: #202c33;
+  max-width: 99%;
+  margin-bottom: 10px;
 `
