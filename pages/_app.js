@@ -5,8 +5,6 @@ import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import Login from './login'
-import { Provider } from 'react-redux'
-import { store } from '@/store'
 
 export default function App({ Component, pageProps }) {
   const [user, loading] = useAuthState(auth)
@@ -29,9 +27,5 @@ export default function App({ Component, pageProps }) {
   if (loading) return <Loading />
 
   if (!user) return <Login />
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  )
+  return <Component {...pageProps} />
 }

@@ -1,11 +1,9 @@
 import DefaultPage from '@/components/DefaultPage'
 import Sidebar from '@/components/Sidebar'
 import Head from 'next/head'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 export default function Home() {
-  const { isDefault } = useSelector((state) => state.defaultPage)
   return (
     <Container>
       <Head>
@@ -15,7 +13,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Sidebar />
-      {isDefault && <DefaultPage />}
+      <DefaultPage />
     </Container>
   )
 }

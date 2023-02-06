@@ -6,11 +6,8 @@ import styled from 'styled-components'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { collection, query, where } from 'firebase/firestore'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-import { closeDefault } from '@/features/default-page/defaultPageSlice'
 
 const Chat = ({ id, users }) => {
-  const dispatch = useDispatch()
   const router = useRouter()
   const [user] = useAuthState(auth)
   const recipientEmail = getRecipientEmail(users, user)
@@ -22,7 +19,6 @@ const Chat = ({ id, users }) => {
   const recipient = recipientSnapshot?.docs?.[0]?.data()
 
   const goToChat = () => {
-    dispatch(closeDefault())
     router.push(`/chat/${id}`)
   }
   return (
