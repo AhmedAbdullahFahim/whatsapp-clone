@@ -2,7 +2,7 @@
 
 import { auth, provider } from '@/firebase'
 import { signInWithPopup } from 'firebase/auth'
-import { Button } from '@mui/material'
+import { Button, createTheme, ThemeProvider } from '@mui/material'
 import Head from 'next/head'
 import styled from 'styled-components'
 
@@ -11,18 +11,32 @@ const Login = () => {
     signInWithPopup(auth, provider).catch(alert)
   }
 
+  const theme = createTheme({
+    palette: {
+      icon: {
+        main: '#aebac1',
+      },
+    },
+  })
+
   return (
-    <Container>
-      <Head>
-        <title>Login</title>
-      </Head>
-      <LoginContainer>
-        <Logo src='http://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png' />
-        <Button variant='contained' color='inherit' onClick={() => signIn()}>
-          Sign in with Google
-        </Button>
-      </LoginContainer>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Head>
+          <title>Login</title>
+        </Head>
+        <LoginContainer>
+          <Logo src='http://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png' />
+          <LoginButton
+            variant='contained'
+            color='icon'
+            onClick={() => signIn()}
+          >
+            Sign in with Google
+          </LoginButton>
+        </LoginContainer>
+      </Container>
+    </ThemeProvider>
   )
 }
 
@@ -39,7 +53,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 100px;
-  background-color: whitesmoke;
+  background-color: #202c33;
   border-radius: 5px;
   box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
 `
@@ -48,4 +62,8 @@ const Logo = styled.img`
   height: 200px;
   width: 200px;
   margin-bottom: 50px;
+`
+
+const LoginButton = styled(Button)`
+  color: #111b21;
 `
