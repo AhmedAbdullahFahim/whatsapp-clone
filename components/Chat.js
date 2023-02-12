@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { collection, query, where } from 'firebase/firestore'
 import { useRouter } from 'next/router'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const Chat = ({ id, users }) => {
   const router = useRouter()
@@ -17,24 +18,35 @@ const Chat = ({ id, users }) => {
   )
   const [recipientSnapshot] = useCollection(recipientRef)
   const recipient = recipientSnapshot?.docs?.[0]?.data()
+  // const recipientFN = recipient?.username.slice(0, indexOf(' '))
 
   const goToChat = () => {
     router.push(`/chat/${id}`)
   }
+  const matches = useMediaQuery('(max-width:780px)')
+
   return (
     <Container onClick={goToChat}>
       {recipient ? (
         <RecInfo>
           <UserAvatar src={recipient?.photoURL} />
           <Rec>
-            <Contact>{recipient.username}</Contact>
-            <RecEmail>{recipientEmail}</RecEmail>
+            <Contact>
+              {matches
+                ? recipient.username.slice(0, recipient.username.indexOf(' '))
+                : recipient.username}
+            </Contact>
+            {!matches && <RecEmail>{recipientEmail}</RecEmail>}
           </Rec>
         </RecInfo>
       ) : (
         <>
           <UserAvatar>{recipientEmail[0]}</UserAvatar>
-          <Contact>{recipientEmail}</Contact>
+          <Contact>
+            {matches
+              ? recipientEmail.slice(0, recipientEmail.indexOf('@'))
+              : recipientEmail}
+          </Contact>
         </>
       )}
     </Container>
@@ -59,6 +71,10 @@ const Container = styled.div`
   :hover {
     background-color: #202c33;
   }
+
+  @media (max-width: 780px) {
+    max-height: 2rem;
+  }
 `
 
 const UserAvatar = styled(Avatar)`
@@ -67,6 +83,8 @@ const UserAvatar = styled(Avatar)`
 `
 const Contact = styled.p`
   color: #d9dad0;
+  @media (max-width: 780px) {
+  }
 `
 const RecInfo = styled.div`
   display: flex;
@@ -78,6 +96,9 @@ const Rec = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media (max-width: 780px) {
+    /* display: none; */
+  }
 `
 
 const RecEmail = styled.span`

@@ -1,8 +1,11 @@
 import { Button, createTheme, IconButton, ThemeProvider } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
+
 import ChatIcon from '@mui/icons-material/Chat'
 import Avatar from '@mui/material/Avatar'
 import styled from 'styled-components'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
 import GroupsIcon from '@mui/icons-material/Groups'
 import SearchIcon from '@mui/icons-material/Search'
 import DonutLargeIcon from '@mui/icons-material/DonutLarge'
@@ -53,11 +56,7 @@ const Sidebar = () => {
       },
     },
   })
-  let isMobile = window.matchMedia(
-    'only screen and (max-width: 1024px)'
-  ).matches
-
-  console.log(isMobile)
+  const matches = useMediaQuery('(max-width:780px)')
 
   return (
     <ThemeProvider theme={theme}>
@@ -65,18 +64,20 @@ const Sidebar = () => {
         <Header>
           <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
           <IconContainer>
-            <Icon>
-              <GroupsIcon color='icon' />
-            </Icon>
-            <Icon>
-              <DonutLargeIcon
-                color='icon'
-                style={{ transform: 'rotate(75deg)' }}
-              />
-            </Icon>
-            <Icon>
-              <ChatIcon color='icon' fontSize='small' />
-            </Icon>
+            <HiddenIcons>
+              <Icon>
+                <GroupsIcon color='icon' />
+              </Icon>
+              <Icon>
+                <DonutLargeIcon
+                  color='icon'
+                  style={{ transform: 'rotate(75deg)' }}
+                />
+              </Icon>
+              <Icon>
+                <ChatIcon color='icon' fontSize='small' />
+              </Icon>
+            </HiddenIcons>
             <Icon>
               <MoreVertIcon color='icon' />
             </Icon>
@@ -89,7 +90,21 @@ const Sidebar = () => {
           </Search>
           <FilterListIcon color='icon' fontSize='small' />
         </SearchContainer>
-        <SidebarButton onClick={startChat}>Start a new chat</SidebarButton>
+        {matches ? (
+          <IconButton
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              margin: 'auto',
+              marginBottom: '1rem',
+            }}
+            onClick={startChat}
+          >
+            <PersonAddAlt1Icon color='icon' fontSize='large' />
+          </IconButton>
+        ) : (
+          <SidebarButton onClick={startChat}>Start a new chat</SidebarButton>
+        )}
         {chatsSnapshot?.docs.map((chat, index) => (
           <Chat key={chat.id} users={chat.data().users} id={chat.id} />
         ))}
@@ -113,12 +128,17 @@ const Container = styled.div`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  @media (max-width: 780px) {
+    max-width: 5rem;
+    min-width: fit-content;
+  }
 `
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0.938rem;
+  padding: 0.75rem;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -134,10 +154,22 @@ const UserAvatar = styled(Avatar)`
   }
 `
 
-const IconContainer = styled.div``
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const HiddenIcons = styled.div`
+  @media (max-width: 1024px) {
+    display: none;
+  }
+`
 
 const Icon = styled(IconButton)`
   margin-right: 0.625rem;
+  @media (max-width: 780px) {
+    display: none;
+  }
 `
 
 const SearchContainer = styled.div`
@@ -146,6 +178,9 @@ const SearchContainer = styled.div`
   padding: 0.625rem;
   border-radius: 2px;
   justify-content: space-evenly;
+  @media (max-width: 888px) {
+    display: none;
+  }
 `
 
 const Search = styled.div`
@@ -176,4 +211,7 @@ const SidebarButton = styled(Button)`
   background-color: #202c33;
   max-width: 99%;
   margin-bottom: 0.625rem;
+  @media (max-width: 888px) {
+    margin-top: 1rem;
+  }
 `

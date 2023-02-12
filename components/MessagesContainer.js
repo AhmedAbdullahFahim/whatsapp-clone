@@ -13,7 +13,7 @@ const MessagesContainer = ({ showMessages, endOfMessagesRef }) => {
 export default MessagesContainer
 
 const Container = styled.div`
-  padding: 30px;
+  padding: 20px;
   background-color: #111b21;
   flex: 1;
   overflow-y: auto;

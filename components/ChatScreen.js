@@ -180,7 +180,7 @@ const Header = styled.div`
   top: 0;
   background-color: #202c33;
   z-index: 100;
-  padding: 0.938rem;
+  padding: 0.75rem 1.2rem;
   height: 2.5rem;
   align-items: center;
 `
