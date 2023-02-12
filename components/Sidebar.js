@@ -53,7 +53,9 @@ const Sidebar = () => {
       },
     },
   })
-  let isMobile = window.matchMedia('only screen and (max-width: 480px)').matches
+  let isMobile = window.matchMedia(
+    'only screen and (max-width: 1024px)'
+  ).matches
 
   console.log(isMobile)
 
@@ -88,7 +90,7 @@ const Sidebar = () => {
           <FilterListIcon color='icon' fontSize='small' />
         </SearchContainer>
         <SidebarButton onClick={startChat}>Start a new chat</SidebarButton>
-        {chatsSnapshot?.docs.map((chat) => (
+        {chatsSnapshot?.docs.map((chat, index) => (
           <Chat key={chat.id} users={chat.data().users} id={chat.id} />
         ))}
       </Container>
@@ -101,7 +103,7 @@ export default Sidebar
 const Container = styled.div`
   flex: 0.45;
   height: 100vh;
-  max-width: 450px;
+  max-width: 28.125rem;
   overflow-y: scroll;
   background-color: #111b21;
   border-right: 1px solid #aebac130;
@@ -116,13 +118,13 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 0.938rem;
   position: sticky;
   top: 0;
   z-index: 1;
   background-color: #202c33;
   align-items: center;
-  height: 40px;
+  height: 2.5rem;
 `
 
 const UserAvatar = styled(Avatar)`
@@ -135,13 +137,13 @@ const UserAvatar = styled(Avatar)`
 const IconContainer = styled.div``
 
 const Icon = styled(IconButton)`
-  margin-right: 10px;
+  margin-right: 0.625rem;
 `
 
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 0.625rem;
   border-radius: 2px;
   justify-content: space-evenly;
 `
@@ -152,8 +154,8 @@ const Search = styled.div`
   display: flex;
   align-items: center;
   border-radius: 10px;
-  padding: 8px 5px 8px 15px;
-  margin-right: 2px;
+  padding: 0.5rem 0.313rem 0.5rem 0.938rem;
+  margin-right: 0.125rem;
 `
 
 const SearchInput = styled.input`
@@ -162,7 +164,7 @@ const SearchInput = styled.input`
   flex: 1;
   background-color: #202c33;
   color: #aebac1;
-  padding-left: 40px;
+  padding-left: 2.5rem;
   ::placeholder {
     color: #aebac1;
   }
@@ -173,5 +175,5 @@ const SidebarButton = styled(Button)`
   color: #aebac1;
   background-color: #202c33;
   max-width: 99%;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 `

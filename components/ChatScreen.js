@@ -22,9 +22,10 @@ import { auth, db } from '@/firebase'
 import { useRouter } from 'next/router'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import Message from './Message'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import getRecipientEmail from '@/utils/getRecipientEmail'
+import MessagesContainer from './MessagesContainer'
 
 const ChatScreen = ({ chat, messages }) => {
   const router = useRouter()
@@ -76,6 +77,10 @@ const ChatScreen = ({ chat, messages }) => {
     scrollToBottom()
   }
 
+  useEffect(() => {
+    scrollToBottom()
+  }, [chat])
+
   const scrollToBottom = () => {
     setTimeout(() => {
       endOfMessagesRef.current.scrollIntoView({
@@ -111,7 +116,11 @@ const ChatScreen = ({ chat, messages }) => {
             <Avatar>{recipientEmail[0]}</Avatar>
           )}
           <Info>
-            <h3>{recipientEmail}</h3>
+            {recipient ? (
+              <h3>{recipient?.username}</h3>
+            ) : (
+              <h3>{recipientEmail}</h3>
+            )}
             {recipientSnapshot ? (
               <p>
                 Last seen{' '}
@@ -134,19 +143,22 @@ const ChatScreen = ({ chat, messages }) => {
             </IconButton>
           </IconContainer>
         </Header>
-        <ChatContainer>
-          {showMessages()}
-          <EndofMessage ref={endOfMessagesRef} />
-        </ChatContainer>
+        <MessagesContainer
+          showMessages={showMessages}
+          endOfMessagesRef={endOfMessagesRef}
+        />
         <InputContainer>
-          <InsertEmoticonIcon color='icon' style={{ marginRight: '15px' }} />
-          <AttachFileIcon color='icon' />
+          <InsertEmoticonIcon
+            color='icon'
+            style={{ marginRight: '15px', cursor: 'pointer' }}
+          />
+          <AttachFileIcon color='icon' style={{ cursor: 'pointer' }} />
           <Input
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder='Type a message'
           />
-          <MicIcon color='icon' />
+          <MicIcon color='icon' style={{ cursor: 'pointer' }} />
           <button hidden disabled={!message} onClick={sendMessage} />
         </InputContainer>
       </Container>
@@ -156,7 +168,11 @@ const ChatScreen = ({ chat, messages }) => {
 
 export default ChatScreen
 
-const Container = styled.div``
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`
 
 const Header = styled.div`
   display: flex;
@@ -164,43 +180,36 @@ const Header = styled.div`
   top: 0;
   background-color: #202c33;
   z-index: 100;
-  padding: 10px 15px;
-  height: 40px;
+  padding: 0.938rem;
+  height: 2.5rem;
   align-items: center;
 `
 const Info = styled.div`
-  margin-left: 15px;
+  margin-left: 0.938rem;
   flex: 1;
   color: #d9dad0;
 
   > h3 {
-    margin-bottom: -10px;
+    margin-bottom: -0.625rem;
   }
 
   > p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: gray;
   }
 `
 
 const IconContainer = styled.div``
 
-const ChatContainer = styled.div`
-  padding: 30px;
-  background-color: #111b21;
-  min-height: 90vh;
-`
-
-const EndofMessage = styled.div``
-
 const InputContainer = styled.form`
   display: flex;
   align-items: center;
-  padding: 10px 15px 16px 20px;
+  padding: 1rem 0.938rem 1rem 1.25rem;
   position: sticky;
   bottom: 0;
   z-index: 100;
   background-color: #202c33;
+  border-bottom-right-radius: 5px;
 `
 
 const Input = styled.input`
@@ -209,11 +218,11 @@ const Input = styled.input`
   border: none;
   border-radius: 10px;
   background-color: #384349;
-  padding: 13px;
-  margin-left: 15px;
-  margin-right: 15px;
+  padding: 0.813rem;
+  margin-left: 0.938rem;
+  margin-right: 0.938rem;
   color: white;
-  font-size: 15px;
+  font-size: 0.938rem;
   ::placeholder {
     color: #aebac1;
   }

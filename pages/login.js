@@ -52,7 +52,7 @@ const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100px;
+  padding: 6.25rem;
   background-color: #202c33;
   border-radius: 5px;
   box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
@@ -61,7 +61,7 @@ const LoginContainer = styled.div`
 const Logo = styled.img`
   height: 200px;
   width: 200px;
-  margin-bottom: 50px;
+  margin-bottom: 3.5rem;
 `
 
 const LoginButton = styled(Button)`

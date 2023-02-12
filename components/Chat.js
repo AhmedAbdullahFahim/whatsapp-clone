@@ -24,11 +24,19 @@ const Chat = ({ id, users }) => {
   return (
     <Container onClick={goToChat}>
       {recipient ? (
-        <UserAvatar src={recipient?.photoURL} />
+        <RecInfo>
+          <UserAvatar src={recipient?.photoURL} />
+          <Rec>
+            <Contact>{recipient.username}</Contact>
+            <RecEmail>{recipientEmail}</RecEmail>
+          </Rec>
+        </RecInfo>
       ) : (
-        <UserAvatar>{recipientEmail[0]}</UserAvatar>
+        <>
+          <UserAvatar>{recipientEmail[0]}</UserAvatar>
+          <Contact>{recipientEmail}</Contact>
+        </>
       )}
-      <Contact>{recipientEmail}</Contact>
     </Container>
   )
 }
@@ -38,11 +46,12 @@ export default Chat
 const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 0.938rem;
   cursor: pointer;
   word-break: break-word;
   max-width: 92%;
-  border-radius: 5px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
   border-bottom: 1px solid #aebac130;
   :last-child {
     border-bottom: 0;
@@ -53,9 +62,27 @@ const Container = styled.div`
 `
 
 const UserAvatar = styled(Avatar)`
-  margin: 5px;
-  margin-right: 15px;
+  margin: 0.313rem;
+  margin-right: 0.938rem;
 `
 const Contact = styled.p`
   color: #d9dad0;
+`
+const RecInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const Rec = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
+const RecEmail = styled.span`
+  font-size: 0.875rem;
+  color: #d9dad090;
+  margin-top: -0.938rem;
+  margin-bottom: 0.625rem;
 `

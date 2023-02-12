@@ -38,7 +38,7 @@ const Logo = styled.img`
 `
 
 const Title = styled.h1`
-  margin-top: 40px;
+  margin-top: 2.5rem;
   font-weight: 500;
   color: #c9cec5;
 `
@@ -55,9 +55,9 @@ const Footer = styled.div`
   text-align: flex-end;
   bottom: 0;
   position: absolute;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `
 
 const Ending = styled.p`
-  margin-left: 5px;
+  margin-left: 0.313rem;
 `
