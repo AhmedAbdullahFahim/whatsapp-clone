@@ -32,6 +32,7 @@ const ChatScreen = ({ chat, messages }) => {
   const router = useRouter()
   const [user] = useAuthState(auth)
   const endOfMessagesRef = useRef()
+  const inputRef = useRef()
   const msgColRef = collection(db, `chats/${router.query.id}/messages`)
   const msgQuery = query(msgColRef, orderBy('timestamp', 'asc'))
   const [messagesSnapshot] = useCollection(msgQuery)
@@ -81,6 +82,10 @@ const ChatScreen = ({ chat, messages }) => {
   useEffect(() => {
     scrollToBottom()
   }, [chat])
+
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -165,6 +170,7 @@ const ChatScreen = ({ chat, messages }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder='Type a message'
+            ref={inputRef}
           />
           <MicIcon color='icon' style={{ cursor: 'pointer' }} />
           <button hidden disabled={!message} onClick={sendMessage} />
