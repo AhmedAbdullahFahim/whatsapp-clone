@@ -24,7 +24,7 @@ const Container = styled.div``
 
 const MessageElement = styled.p`
   width: fit-content;
-  padding: 15px;
+  padding: 0.938rem;
   border-radius: 8px;
   margin: 10px;
   min-width: 60px;
@@ -33,17 +33,21 @@ const MessageElement = styled.p`
   text-align: right;
   @media (max-width: 780px) {
     font-size: 14px;
+    margin-right: 0.1rem;
+    margin-left: 0.1rem;
   }
 `
 
 const Sender = styled(MessageElement)`
   margin-left: auto;
   background-color: #005c4b;
+  border-top-right-radius: 0;
 `
 
 const Reciever = styled(MessageElement)`
   text-align: left;
   background-color: #10161a;
+  border-top-left-radius: 0;
 `
 
 const Timestamp = styled.span`
