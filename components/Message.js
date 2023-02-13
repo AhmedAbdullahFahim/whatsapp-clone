@@ -31,6 +31,9 @@ const MessageElement = styled.p`
   padding-bottom: 26px;
   position: relative;
   text-align: right;
+  @media (max-width: 780px) {
+    font-size: 14px;
+  }
 `
 
 const Sender = styled(MessageElement)`
