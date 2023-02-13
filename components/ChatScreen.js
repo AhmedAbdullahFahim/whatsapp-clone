@@ -1,4 +1,5 @@
 import { createTheme, IconButton, ThemeProvider } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import Avatar from '@mui/material/Avatar'
 import SearchIcon from '@mui/icons-material/Search'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
@@ -112,6 +113,8 @@ const ChatScreen = ({ chat, messages }) => {
     },
   })
 
+  const matches = useMediaQuery('(max-width:780px)')
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
@@ -130,9 +133,20 @@ const ChatScreen = ({ chat, messages }) => {
           )}
           <Info>
             {recipient ? (
-              <h3>{recipient?.username}</h3>
+              <h3>
+                {matches
+                  ? recipient?.username.slice(
+                      0,
+                      recipient.username.indexOf(' ')
+                    )
+                  : recipient?.username}
+              </h3>
             ) : (
-              <h3>{recipientEmail}</h3>
+              <h3>
+                {matches
+                  ? recipientEmail.slice(0, recipientEmail.indexOf('@'))
+                  : recipientEmail}
+              </h3>
             )}
             {recipientSnapshot ? (
               <p>

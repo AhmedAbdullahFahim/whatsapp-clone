@@ -22,30 +22,20 @@ const Chat = ({ id, users }) => {
   const goToChat = () => {
     router.push(`/chat/${id}`)
   }
-  const matches = useMediaQuery('(max-width:780px)')
-
   return (
     <Container onClick={goToChat}>
       {recipient ? (
         <RecInfo>
           <UserAvatar src={recipient?.photoURL} />
           <Rec>
-            <Contact>
-              {matches
-                ? recipient.username.slice(0, recipient.username.indexOf(' '))
-                : recipient.username}
-            </Contact>
+            <Contact>{recipient.username}</Contact>
             <RecEmail>{recipientEmail}</RecEmail>
           </Rec>
         </RecInfo>
       ) : (
         <>
           <UserAvatar>{recipientEmail[0]}</UserAvatar>
-          <Contact>
-            {matches
-              ? recipientEmail.slice(0, recipientEmail.indexOf('@'))
-              : recipientEmail}
-          </Contact>
+          <Contact>{recipientEmail}</Contact>
         </>
       )}
     </Container>
