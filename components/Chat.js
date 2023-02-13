@@ -18,7 +18,6 @@ const Chat = ({ id, users }) => {
   )
   const [recipientSnapshot] = useCollection(recipientRef)
   const recipient = recipientSnapshot?.docs?.[0]?.data()
-  // const recipientFN = recipient?.username.slice(0, indexOf(' '))
 
   const goToChat = () => {
     router.push(`/chat/${id}`)
@@ -36,7 +35,7 @@ const Chat = ({ id, users }) => {
                 ? recipient.username.slice(0, recipient.username.indexOf(' '))
                 : recipient.username}
             </Contact>
-            {!matches && <RecEmail>{recipientEmail}</RecEmail>}
+            <RecEmail>{recipientEmail}</RecEmail>
           </Rec>
         </RecInfo>
       ) : (
@@ -71,10 +70,6 @@ const Container = styled.div`
   :hover {
     background-color: #202c33;
   }
-
-  @media (max-width: 780px) {
-    max-height: 2rem;
-  }
 `
 
 const UserAvatar = styled(Avatar)`
@@ -83,8 +78,6 @@ const UserAvatar = styled(Avatar)`
 `
 const Contact = styled.p`
   color: #d9dad0;
-  @media (max-width: 780px) {
-  }
 `
 const RecInfo = styled.div`
   display: flex;
@@ -96,9 +89,6 @@ const Rec = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media (max-width: 780px) {
-    /* display: none; */
-  }
 `
 
 const RecEmail = styled.span`

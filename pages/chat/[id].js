@@ -2,6 +2,7 @@ import ChatScreen from '@/components/ChatScreen'
 import Sidebar from '@/components/Sidebar'
 import { auth, db } from '@/firebase'
 import getRecipientEmail from '@/utils/getRecipientEmail'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import {
   collection,
   doc,
@@ -16,12 +17,13 @@ import styled from 'styled-components'
 
 const Chat = ({ chat, messages }) => {
   const [user] = useAuthState(auth)
+  const matches = useMediaQuery('(max-width:780px)')
   return (
     <Container>
       <Head>
         <title>Chat with {getRecipientEmail(chat.users, user)}</title>
       </Head>
-      <Sidebar />
+      {!matches && <Sidebar />}
       <ChatContainer>
         <ChatScreen chat={chat} messages={messages} />
       </ChatContainer>

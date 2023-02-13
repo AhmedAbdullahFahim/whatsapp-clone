@@ -64,20 +64,18 @@ const Sidebar = () => {
         <Header>
           <UserAvatar onClick={() => auth.signOut()} src={user.photoURL} />
           <IconContainer>
-            <HiddenIcons>
-              <Icon>
-                <GroupsIcon color='icon' />
-              </Icon>
-              <Icon>
-                <DonutLargeIcon
-                  color='icon'
-                  style={{ transform: 'rotate(75deg)' }}
-                />
-              </Icon>
-              <Icon>
-                <ChatIcon color='icon' fontSize='small' />
-              </Icon>
-            </HiddenIcons>
+            <Icon>
+              <GroupsIcon color='icon' />
+            </Icon>
+            <Icon>
+              <DonutLargeIcon
+                color='icon'
+                style={{ transform: 'rotate(75deg)' }}
+              />
+            </Icon>
+            <Icon>
+              <ChatIcon color='icon' fontSize='small' />
+            </Icon>
             <Icon>
               <MoreVertIcon color='icon' />
             </Icon>
@@ -90,21 +88,7 @@ const Sidebar = () => {
           </Search>
           <FilterListIcon color='icon' fontSize='small' />
         </SearchContainer>
-        {matches ? (
-          <IconButton
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              margin: 'auto',
-              marginBottom: '1rem',
-            }}
-            onClick={startChat}
-          >
-            <PersonAddAlt1Icon color='icon' fontSize='large' />
-          </IconButton>
-        ) : (
-          <SidebarButton onClick={startChat}>Start a new chat</SidebarButton>
-        )}
+        <SidebarButton onClick={startChat}>Start a new chat</SidebarButton>
         {chatsSnapshot?.docs.map((chat, index) => (
           <Chat key={chat.id} users={chat.data().users} id={chat.id} />
         ))}
@@ -128,11 +112,6 @@ const Container = styled.div`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
-
-  @media (max-width: 780px) {
-    max-width: 5rem;
-    min-width: fit-content;
-  }
 `
 
 const Header = styled.div`
@@ -160,16 +139,16 @@ const IconContainer = styled.div`
 `
 
 const HiddenIcons = styled.div`
-  @media (max-width: 1024px) {
+  /* @media (max-width: 1024px) {
     display: none;
-  }
+  } */
 `
 
 const Icon = styled(IconButton)`
   margin-right: 0.625rem;
-  @media (max-width: 780px) {
+  /* @media (max-width: 780px) {
     display: none;
-  }
+  } */
 `
 
 const SearchContainer = styled.div`
@@ -213,5 +192,8 @@ const SidebarButton = styled(Button)`
   margin-bottom: 0.625rem;
   @media (max-width: 888px) {
     margin-top: 1rem;
+    font-weight: bold;
+    margin-left: 1.2rem;
+    max-width: 90%;
   }
 `
