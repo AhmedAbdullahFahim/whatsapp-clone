@@ -191,9 +191,6 @@ const Header = styled.div`
   padding: 0.75rem 1.2rem;
   height: 2.5rem;
   align-items: center;
-  @media (max-width: 780px) {
-    padding-left: 0.6rem;
-  }
 `
 const Info = styled.div`
   margin-left: 0.938rem;
