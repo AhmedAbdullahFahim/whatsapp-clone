@@ -38,7 +38,7 @@ const DefaultPage = () => {
         </Header>
         <Main>
           <Logo src='/logo.webp' />
-          <Title>WhatsApp Web</Title>
+          <Title>WhatsApp</Title>
           <Description>
             Send and recieve messages without keeping your phone online.
           </Description>
