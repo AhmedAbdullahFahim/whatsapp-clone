@@ -15,7 +15,7 @@ const DefaultPage = () => {
   if (!matches) {
     return (
       <DefaultContainer>
-        <Logo src='http://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png' />
+        <Logo src='/logo.webp' />
         <Title>WhatsApp Web</Title>
         <Description>
           Send and recieve messages without keeping your phone online.
