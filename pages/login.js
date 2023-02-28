@@ -24,9 +24,10 @@ const Login = () => {
       <Container>
         <Head>
           <title>Login</title>
+          <link rel='icon' href='/logo.webp' />
         </Head>
         <LoginContainer>
-          <Logo src='http://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png' />
+          <Logo src='logo.webp' />
           <LoginButton
             variant='contained'
             color='icon'
