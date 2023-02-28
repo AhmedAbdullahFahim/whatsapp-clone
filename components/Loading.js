@@ -1,4 +1,5 @@
 import { CircularProgress, createTheme, ThemeProvider } from '@mui/material'
+import Head from 'next/head'
 
 const Loading = () => {
   const theme = createTheme({
@@ -10,6 +11,10 @@ const Loading = () => {
   })
   return (
     <ThemeProvider theme={theme}>
+      <Head>
+        <title>Loading...</title>
+        <link rel='icon' href='/logo.webp' />
+      </Head>
       <div
         style={{
           display: 'flex',
